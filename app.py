@@ -1,26 +1,45 @@
+import requests
 from flask import Flask, jsonify
+
 
 app = Flask(__name__)
 
-posts = [{"id": 1, "title": "Post 1"}, {"id": 2, "title": "Post 2"}]
-comments = [{"id": 1, "post_id": 1, "text": "Nice!"}, {"id": 2, "post_id": 2, "text": "Cool!"}]
-albums = [{"id": 1, "name": "Album 1"}, {"id": 2, "name": "Album 2"}]
-
-@app.route('/')
-def home():
-    return jsonify({"message": "Simple API"})
-
 @app.route('/posts')
 def get_posts():
-    return jsonify(posts)
+    url = "https://jsonplaceholder.typicode.com/posts"
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+    return jsonify({
+        "data": response.json(),
+        "status": "successfully triggered auto deployment",
+        "status_code": 200
+    })
 
 @app.route('/comments')
 def get_comments():
-    return jsonify(comments)
+    url = "https://jsonplaceholder.typicode.com/comments"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    return jsonify({
+        "data": response.json(),
+        "status": "success",
+        "status_code": 200
+    })
 
 @app.route('/albums')
 def get_albums():
-    return jsonify(albums)
+    url = "https://jsonplaceholder.typicode.com/albums"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, headers=headers, data=payload)
+    return jsonify({
+        "data": response.json(),
+        "status": "success",
+        "status_code": 200
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)
